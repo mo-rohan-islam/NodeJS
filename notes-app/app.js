@@ -1,31 +1,116 @@
 // const validator = require('validator')
 const chalk = require('chalk')
-const getNotes = require('./notes.js')
+const yargs = require('yargs')
+const notes = require('./notes.js')
 
-const msg = getNotes()
-console.log(msg)
+// const command = process.argv[2]
 
-console.log(chalk.green(msg))
-console.log(chalk.bgGreen('Success!'))
-console.log(chalk.inverse('Inverse'))
-console.log(chalk.bold('Bold'))
+// Customize yargs version
+yargs.version('1.1.0')
 
-console.log(chalk.green.bgGray.bold.italic('Combination'))
+// Create add command
+yargs.command({
+    command: 'add',
+    describe: 'Add a new note',
+    builder: {
+        title: {
+            describe: 'Note title',
+            demandOption: true,
+            type: 'string'
+        },
+        body: {
+            describe: 'Note body',
+            demandOption: true,
+            type: 'string'
+        }
+    },
+    handler: function (argv) {
+        notes.addNote(argv.title, argv.body)
+    }
+})
 
-const green = chalk.green
-console.log(green('Green'))
+// Create remove command
+yargs.command({
+    command: 'remove',
+    describe: 'Remove a note',
+    builder: {
+        title: {
+            describe: 'Note title',
+            demandOption: true,
+            type: 'string'
+        }
+    },
+    handler: function (argv) {
+        notes.removeNote(argv.title)
+    }
+})
 
-const error = chalk.bold.red
-const warning = chalk.keyword('yellow')
+// add, remove, read, list
+// Challenge
 
-console.log(error('Error!!!'))
-console.log(warning('Warning!'))
+// Create list command
+yargs.command({
+    command: 'list',
+    describe: 'List a note',
+    handler: function () {
+        console.log('Listing a note')
+    }
+})
+
+// Create read command
+yargs.command({
+    command: 'read',
+    describe: 'Read a note',
+    handler: function () {
+        console.log('Reading a note')
+    }
+})
+
+yargs.parse()
+
+// console.log(process.argv)
+// console.log(yargs.argv)
 
 
-const name = 'Rohan'
-const color = chalk.inverse.keyword('blue')
+// if (command === 'add') {
+//     console.log('Adding note!')
+// } else if (command === 'remove') {
+//     console.log('Removing note!')
+// }
 
-console.log(color('%s... %s'), name, getNotes())
+
+
+// const msg = getNotes()
+// console.log(msg)
+
+// const greetMsg = chalk.blue.inverse.bold('Success!')
+// console.log(greetMsg)
+
+// console.log(process.argv[2])
+
+
+
+// console.log(chalk.green(msg))
+// console.log(chalk.bgGreen('Success!'))
+// console.log(chalk.inverse('Inverse'))
+// console.log(chalk.bold('Bold'))
+
+// console.log(chalk.green.bgGray.bold.italic('Combination'))
+
+// const green = chalk.green
+// console.log(green('Green'))
+
+// const error = chalk.bold.red
+// const warning = chalk.keyword('yellow')
+
+// console.log(error('Error!!!'))
+// console.log(warning('Warning!'))
+
+
+// const name = 'Rohan'
+// const color = chalk.inverse.keyword('blue')
+
+// console.log(color('%s... %s'), name, getNotes())
 
 
 
