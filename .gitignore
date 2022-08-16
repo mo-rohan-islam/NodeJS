@@ -1,1 +1,8 @@
 .vscode
+
+Exercise Files/*
+!Exercise Files/Ch02
+Exercise Files/Ch02/*
+!Exercise Files/Ch02/02_01
+Exercise Files/Ch02/02_01/*
+!Exercise Files/Ch02/02_01/start
